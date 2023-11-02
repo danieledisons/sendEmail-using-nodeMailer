@@ -4,7 +4,7 @@ const app = express();
 const { sendMail } = require("./app");
 
 app.get("/", (req, res) => {
-  res.send("use /send/:email to send email...s");
+  res.send("use /send/:email to send email...");
 });
 
 app.get("/send/:email", async (req, res) => {
