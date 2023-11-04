@@ -8,11 +8,15 @@ app.get("/", (req, res) => {
 });
 
 app.get("/send/:email", async (req, res) => {
+  const data = {
+    status: 200,
+    message: "Email sent successfully",
+  };
   try {
     if (req.params.email) {
       const info = await sendMail(req.params.email);
       // res.send(info);
-      res.status().send(200);
+      res.json(data);
     }
   } catch (error) {
     res.send(error);
