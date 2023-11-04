@@ -11,8 +11,8 @@ app.get("/send/:email", async (req, res) => {
   try {
     if (req.params.email) {
       const info = await sendMail(req.params.email);
-      res.send(info);
-      res.status(200);
+      // res.send(info);
+      res.status().send(200);
     }
   } catch (error) {
     res.send(error);
