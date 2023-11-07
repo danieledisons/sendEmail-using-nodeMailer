@@ -13,7 +13,11 @@ const REFRESH_TOKEN = process.env.REFRESH_TOKEN;
 const oAuth2Client = new OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
 oAuth2Client.setCredentials({ refresh_token: REFRESH_TOKEN });
 
-async function sendMail(receivingEmail) {
+async function sendMail(
+  receivingEmail,
+  sendername = "Email Bot",
+  textmessage = "Hurray! You are receiving a mail from Daniel's Automated Email Sender."
+) {
   try {
     const accessToken = await new Promise((resolve, reject) => {
       oAuth2Client.getAccessToken((err, token) => {
@@ -41,13 +45,12 @@ async function sendMail(receivingEmail) {
     const mailOptions = {
       from: "Daniel Automated Email Sender <danieledison129@gmail.com>",
       to: receivingEmail,
-      subject: "hello from Daniel Automated Email Sender",
+      subject: `${sendername} Hello from Daniel Automated Email Sender, This message is sent from ${sendername}`,
       text: "Testing Testing Hello from Daniel Automated Email Sender",
-      html: "<h2>Hurray! You are receiving a mail from Daniel's Automated Email Sender. </h2>",
+      html: `<h2>${textmessage}</h2>`,
     };
 
     const result = await transport.sendMail(mailOptions);
-
     return result;
   } catch (error) {
     return error;
